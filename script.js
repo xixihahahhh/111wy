@@ -24,12 +24,17 @@ function parseContentFromText(text) {
 
     // 检查是否是分类标题
     if (line === "古诗：" || line === "课文段落：" || line === "日积月累：") {
+      // 切换分类前，先保存当前项目
+      if (current) {
+        items.push(current);
+        current = null;
+      }
       currentCategory = line.replace("：", "");
       continue;
     }
 
-    // 古诗格式：以《》开头
-    if (line.startsWith("《") && line.includes("》")) {
+    // 古诗格式：以《》开头（但不包含括号，避免与课文段落混淆）
+    if (line.startsWith("《") && line.includes("》") && !line.includes("（") && !line.includes("）")) {
       if (current) items.push(current);
       
       const titleMatch = line.match(/《([^》]+)》/);
@@ -144,6 +149,13 @@ function parseContentFromText(text) {
   }
   
   if (current) items.push(current);
+  
+  // 调试：输出解析结果
+  console.log("解析结果：", items.length, "项");
+  items.forEach((item, idx) => {
+    console.log(`${idx + 1}. [${item.type}] ${item.title} - 内容行数: ${item.lines.length}`);
+  });
+  
   return items;
 }
 
@@ -639,10 +651,4 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// ===================== 关于豆包 / 服务器端接入说明 =====================
-// 如果你希望更稳定、准确的语音识别和更自然的语音合成，可以：
-// 1. 在后端（Node.js / Python 等）接入豆包或火山引擎的语音接口；
-// 2. 前端把要朗读的文字、参考文本等发送到你的后端；
-// 3. 后端向豆包接口发起请求，返回音频或识别结果，再转发给前端播放或展示。
-// 这样可以保护你的 API 密钥，不会暴露在浏览器里。
 

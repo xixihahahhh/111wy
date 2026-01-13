@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>古诗小课堂</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="app-header">
+        <div class="logo-area">
+          <span class="logo-icon">📚</span>
+          <span class="logo-text">古诗小课堂</span>
+        </div>
+        <div class="mode-switch">
+          <button class="mode-btn active" data-mode="read">点读模式</button>
+          <button class="mode-btn" data-mode="follow">跟读模式</button>
+          <button class="mode-btn" data-mode="recite">背诵模式</button>
+        </div>
+      </header>
+
+      <main class="app-main">
+        <aside class="sidebar">
+          <h2 class="section-title">本课目录</h2>
+          <ul id="poem-list" class="poem-list"></ul>
+        </aside>
+
+        <section class="content">
+          <div class="poem-card">
+            <div class="poem-header">
+              <h1 id="poem-title">加载中…</h1>
+              <p id="poem-author" class="poem-author"></p>
+            </div>
+
+            <div id="poem-text" class="poem-text"></div>
+
+            <div id="poem-extra" class="poem-extra">
+              <details open>
+                <summary>注释</summary>
+                <div id="poem-notes" class="poem-notes"></div>
+              </details>
+              <details>
+                <summary>译文</summary>
+                <p id="poem-translation" class="poem-translation"></p>
+              </details>
+            </div>
+          </div>
+
+          <div class="control-panel">
+            <h2 class="section-title">语音小助手</h2>
+            <div class="status-row">
+              <span>当前模式：</span>
+              <span id="current-mode-label" class="badge badge-read">点读模式</span>
+            </div>
+
+            <div id="read-mode-panel" class="mode-panel">
+              <p class="hint">小朋友可以点一行古诗或注释，我会读给你听哦！</p>
+            </div>
+
+            <div id="follow-mode-panel" class="mode-panel hidden">
+              <p class="hint">
+                先点一行文字，我先读一遍，然后请你跟着读，我来给你打分！
+              </p>
+              <button id="btn-start-follow" class="primary-btn" disabled>
+                请选择一句要跟读
+              </button>
+            </div>
+
+            <div id="recite-mode-panel" class="mode-panel hidden">
+              <p class="hint">
+                我会把古诗藏起来，请你大声背出来，我来检查你记得对不对！
+              </p>
+              <button id="btn-toggle-hide" class="secondary-btn">
+                隐藏 / 显示古诗
+              </button>
+              <button id="btn-start-recite" class="primary-btn">
+                开始背诵
+              </button>
+            </div>
+
+            <div id="audio-status" class="audio-status">
+              <span id="audio-status-text">准备就绪</span>
+            </div>
+
+            <div id="result-panel" class="result-panel hidden">
+              <h3>评测结果</h3>
+              <p id="result-text"></p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <span>语音功能基于浏览器或后端AI接口（如豆包）</span>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
